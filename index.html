@@ -230,28 +230,28 @@
 
         <!-- 功能標籤 -->
         <div class="flex flex-wrap justify-center bg-white rounded-xl shadow-sm mb-6 border border-gray-100 sticky top-20 z-40">
-            <button id="tab-overview" class="tab-btn active px-4 py-3 md:px-6 md:py-4 font-medium text-gray-600 hover:text-amber-700" data-tab="overview">
+            <button id="tab-overview" class="tab-btn active px-4 py-3 md:px-6 md:py-4 font-medium text-gray-600 hover:text-amber-700" onclick="switchTab('overview')">
                 <i class="fas fa-info-circle mr-2"></i>故事總覽
             </button>
-            <button id="tab-reading" class="tab-btn px-4 py-3 md:px-6 md:py-4 font-medium text-gray-600 hover:text-amber-700" data-tab="reading">
+            <button id="tab-reading" class="tab-btn px-4 py-3 md:px-6 md:py-4 font-medium text-gray-600 hover:text-amber-700" onclick="switchTab('reading')">
                 <i class="fas fa-glasses mr-2"></i>精讀與圖解
             </button>
-            <button id="tab-deep" class="tab-btn px-4 py-3 md:px-6 md:py-4 font-medium text-gray-600 hover:text-amber-700" data-tab="deep">
+            <button id="tab-deep" class="tab-btn px-4 py-3 md:px-6 md:py-4 font-medium text-gray-600 hover:text-amber-700" onclick="switchTab('deep')">
                 <i class="fas fa-project-diagram mr-2"></i>邏輯圖解
             </button>
-            <button id="tab-story" class="tab-btn px-4 py-3 md:px-6 md:py-4 font-medium text-gray-600 hover:text-amber-700" data-tab="story">
+            <button id="tab-story" class="tab-btn px-4 py-3 md:px-6 md:py-4 font-medium text-gray-600 hover:text-amber-700" onclick="switchTab('story')">
                 <i class="fas fa-theater-masks mr-2"></i>抉擇之路(RPG)
             </button>
-            <button id="tab-vocabulary" class="tab-btn px-4 py-3 md:px-6 md:py-4 font-medium text-gray-600 hover:text-amber-700" data-tab="vocabulary">
+            <button id="tab-vocabulary" class="tab-btn px-4 py-3 md:px-6 md:py-4 font-medium text-gray-600 hover:text-amber-700" onclick="switchTab('vocabulary')">
                 <i class="fas fa-spell-check mr-2"></i>語詞精解
             </button>
-            <button id="tab-analysis" class="tab-btn px-4 py-3 md:px-6 md:py-4 font-medium text-gray-600 hover:text-amber-700" data-tab="analysis">
+            <button id="tab-analysis" class="tab-btn px-4 py-3 md:px-6 md:py-4 font-medium text-gray-600 hover:text-amber-700" onclick="switchTab('analysis')">
                 <i class="fas fa-feather-alt mr-2"></i>文義與修辭
             </button>
-            <button id="tab-chat" class="tab-btn px-4 py-3 md:px-6 md:py-4 font-medium text-gray-600 hover:text-amber-700" data-tab="chat">
+            <button id="tab-chat" class="tab-btn px-4 py-3 md:px-6 md:py-4 font-medium text-gray-600 hover:text-amber-700" onclick="switchTab('chat')">
                 <i class="fas fa-robot mr-2"></i>AI 角色扮演
             </button>
-            <button id="tab-quiz" class="tab-btn px-4 py-3 md:px-6 md:py-4 font-medium text-gray-600 hover:text-amber-700" data-tab="quiz">
+            <button id="tab-quiz" class="tab-btn px-4 py-3 md:px-6 md:py-4 font-medium text-gray-600 hover:text-amber-700" onclick="switchTab('quiz')">
                 <i class="fas fa-pen-nib mr-2"></i>隨堂測驗
             </button>
         </div>
@@ -266,7 +266,7 @@
     <!-- 註釋彈出框模板 -->
     <div id="note-template" class="note-popup absolute bg-white border-l-4 border-amber-500 rounded-r-lg shadow-2xl p-4 z-50 hidden w-72" onclick="event.stopPropagation()">
         <!-- 關閉按鈕 -->
-        <button id="close-note-btn" class="absolute top-2 right-2 text-gray-400 hover:text-amber-600 transition">
+        <button onclick="closeNote()" class="absolute top-2 right-2 text-gray-400 hover:text-amber-600 transition">
             <i class="fas fa-times"></i>
         </button>
         <div id="note-content">
@@ -283,7 +283,7 @@
                 </div>
                 <h3 class="text-2xl font-bold text-gray-900 mb-2">測驗結果</h3>
                 <p class="text-gray-500 mb-6" id="score-text">你的得分是...</p>
-                <button id="close-score-modal-btn" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-amber-600 text-base font-medium text-white hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 sm:text-sm">
+                <button onclick="closeScoreModal()" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-amber-600 text-base font-medium text-white hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 sm:text-sm">
                     查看詳細解析
                 </button>
             </div>
@@ -301,7 +301,7 @@
 
     <script>
         // ----------------------------------------------------
-        // 1. 教材資料結構 (Content Data) - 推敲
+        // 1. 教材資料結構 (Content Data) - 王積薪聞棋
         // ----------------------------------------------------
         const contentData = {
             metadata: {
@@ -320,7 +320,7 @@
                 "**側寫 (Side Description):** 「左右擁至尹前」寫出了儀仗的威嚴，反襯賈島「不覺」的專注。"
             ],
             
-            // 36個詳盡語詞精解
+            // 36個詳盡語詞精解 - 全部將嵌入文言文中
             vocabulary: [
                 { word: "島", zhuyin: "ㄉㄠˇ", pos: "名詞", meaning: "指賈島，唐代著名詩人，以苦吟著稱。" },
                 { word: "初", zhuyin: "ㄔㄨ", pos: "副詞", meaning: "當初、第一次。" },
@@ -366,6 +366,7 @@
                     translation: "賈島初次前往京城長安參加科舉考試，有一天，他在驢背上構思得到兩句詩：「鳥兒棲宿在池邊的樹上，僧人敲著月光下的門。」",
                     audioText: "島初赴舉京師，一日，於驢上得句云：鳥宿池邊樹，僧敲月下門。",
                     notes: {},
+                    // Modified image path for GitHub Pages
                     imageData: "images/reading_segment_1.jpg"
                 },
                 {
@@ -411,6 +412,7 @@
                     imageData: "images/reading_segment_7.jpg"
                 }
             ],
+            // 隨堂測驗 (高難度)
             quiz: [
                 { q: "文中「權」京兆的「權」字，在官制術語中的意思為何？", opts: ["A. 權力很大", "B. 暫代官職", "C. 權衡輕重", "D. 掌握實權"], ans: "B", exp: "「權」在古代官制中指「暫代」或「代理」官職。" },
                 { q: "「衝至第三節」之所以嚴重，是因為「第三節」通常指什麼？", opts: ["A. 儀仗隊的最尾端", "B. 儀仗隊的最前端", "C. 接近主官的核心警戒區", "D. 圍觀群眾的第三層"], ans: "C", exp: "唐代儀仗分導從，第三節極接近主官，闖入此區是對官員極大的冒犯。" },
@@ -433,7 +435,7 @@
                 { q: "「尹」在「左右擁至尹前」中是指？", opts: ["A. 尹姓官員", "B. 縣令", "C. 京兆尹韓愈", "D. 丞相"], ans: "C", exp: "指京兆尹，即當時的韓愈。" },
                 { q: "這兩則故事共同凸顯了賈島的什麼性格特質？", opts: ["A. 圓滑世故", "B. 汲汲營營", "C. 痴迷文學不拘小節", "D. 膽小怕事"], ans: "C", exp: "無論是衝撞儀仗還是對皇帝無禮，都源於他對詩歌的痴迷與專注。" }
             ]
-        };
+        }; // ContentData ends here
 
         // 預處理所有關鍵字 (將 contentData.vocabulary 轉為 Map 結構)
         const allKeywords = {};
@@ -446,6 +448,10 @@
         // ----------------------------------------------------
         let currentTab = 'overview';
         let chatHistory = [];
+        let isGeneratingImage = false;
+        let currentAudio = null;
+        let currentPersona = 'jiadao'; 
+        let hasPreloadedStory = false;
         let userAnswers = {}; 
 
         const personas = {
@@ -561,10 +567,6 @@
             const tabButtons = document.querySelectorAll('.tab-btn');
             tabButtons.forEach(btn => {
                 btn.addEventListener('click', function() {
-                    // 根據按鈕上的 onclick="switchTab('...')" 解析出 ID
-                    // 這裡為了簡單，直接從 HTML 的 onclick 屬性轉移邏輯，
-                    // 或者更乾淨的做法是讀取 data-tab 屬性
-                    // 但為了相容原本的 HTML 結構，我們直接在這裡呼叫 switchTab
                     const onClickAttr = this.getAttribute('onclick');
                     if (onClickAttr) {
                         const match = onClickAttr.match(/switchTab\('([^']+)'\)/);
@@ -573,8 +575,6 @@
                         }
                     }
                 });
-                // 移除 inline onclick 以避免 ReferenceError，改用上面的 EventListener
-                // btn.removeAttribute('onclick'); 
             });
 
             // 但因為 HTML 已經寫死 onclick="switchTab(...)"，瀏覽器會先執行它。
@@ -619,8 +619,7 @@
             closeNote();
 
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            const activeBtn = document.getElementById(`tab-${tabId}`);
-            if(activeBtn) activeBtn.classList.add('active');
+            document.getElementById(`tab-${tabId}`).classList.add('active');
 
             const container = document.getElementById('content-display');
             container.style.opacity = '0';
@@ -725,17 +724,11 @@
             `;
         }
         
-        // ... (其余 renderDeepUnderstanding, renderVocabulary, renderAnalysis, renderChat, renderQuiz 函数保持不變，但請確認 window.XXX = XXX 的綁定)
-        // 為了節省篇幅，這裡省略重複的渲染函數代碼，但在實際檔案中必須包含。
-        // 請確保上面定義的 renderDeepUnderstanding, renderVocabulary 等函數都在 script 標籤內。
-        
         function renderDeepUnderstanding(container) {
-            // ... (同前次代碼，省略以節省空間，請務必包含)
              container.innerHTML = `<div class="text-center p-10">邏輯圖解內容 (請參考完整代碼)</div>`; 
         }
 
         function renderVocabulary(container) {
-             // ... (同前次代碼)
              const cardsHtml = contentData.vocabulary.map(item => `
                 <div class="bg-white border border-amber-100 rounded-xl p-5 shadow-sm hover:shadow-md transition duration-200 flex flex-col h-full">
                     <div class="flex justify-between items-start mb-3">
@@ -759,7 +752,6 @@
         }
         
         function renderAnalysis(container) {
-             // ... (同前次代碼)
               const rhetoricHtml = contentData.rhetoric.map(r => `
                 <div class="flex items-start mb-4 p-4 bg-white rounded-lg border border-gray-100 shadow-sm">
                     <div class="flex-shrink-0 mr-4">
@@ -804,7 +796,6 @@
         }
         
         function renderQuiz(container) {
-             // ... (同前次代碼)
              let quizHtml = contentData.quiz.map((q, i) => {
                 const val = ["A","B","C","D"];
                 const isAnswered = userAnswers[i] !== undefined;
