@@ -3,17 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>(推與敲) 第37篇 推敲 - 互動式古文學習 (AI 旗艦版)</title>
+    <title>(推與敲) 第37篇 推敲 - 互動式古文學習</title>
     <!-- 載入 Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- 載入 Marked.js -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <!-- 載入 JSZip 和 FileSaver -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <!-- 載入 FontAwesome 圖標 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- 載入 Canvas Confetti -->
+    <!-- 載入 Canvas Confetti (保留慶祝特效) -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
     <style>
@@ -180,7 +177,7 @@
                     <span class="font-bold text-xl tracking-wider">古文互動教室</span>
                 </div>
                 <div class="hidden md:block text-sm opacity-80">
-                    AI 旗艦版
+                    GitHub 版
                 </div>
             </div>
         </div>
@@ -278,8 +275,6 @@
     </div>
 
     <script>
-        const apiKey = ""; // API Key
-        
         // ----------------------------------------------------
         // 1. 教材資料結構 (Content Data) - 推敲
         // ----------------------------------------------------
@@ -300,7 +295,7 @@
                 "**側寫 (Side Description):** 「左右擁至尹前」寫出了儀仗的威嚴，反襯賈島「不覺」的專注。"
             ],
             
-            // 36個詳盡語詞精解 - 全部將嵌入文言文中
+            // 36個詳盡語詞精解
             vocabulary: [
                 { word: "島", zhuyin: "ㄉㄠˇ", pos: "名詞", meaning: "指賈島，唐代著名詩人，以苦吟著稱。" },
                 { word: "初", zhuyin: "ㄔㄨ", pos: "副詞", meaning: "當初、第一次。" },
@@ -340,72 +335,59 @@
                 { word: "除", zhuyin: "ㄔㄨˊ", pos: "動詞", meaning: "授予官職。" }
             ],
 
+            // 預設圖片路徑已設定為 'images/reading_segment_x.jpg'
             segments: [
                 {
                     original: "島初赴舉京師，一日，於驢上得句云：「鳥宿池邊樹，僧敲月下門。」",
                     translation: "賈島初次前往京城長安參加科舉考試，有一天，他在驢背上構思得到兩句詩：「鳥兒棲宿在池邊的樹上，僧人敲著月光下的門。」",
                     audioText: "島初赴舉京師，一日，於驢上得句云：鳥宿池邊樹，僧敲月下門。",
                     notes: {},
-                    // 加入具體人物特徵：瘦削書生、山羊鬍、灰袍、黑帽
-                    imagePrompt: "Hyper-realistic, colorful, detailed cinematic shot. A thin scholar with a goatee, wearing worn-out grey robes and a black cloth hat (Jia Dao), riding a donkey in Chang'an city at night. Moonlight atmosphere, detailed facial features, historical drama style, 8k resolution. NO text.",
-                    imageData: null
+                    imagePath: "images/reading_segment_1.jpg"
                 },
                 {
                     original: "始欲著「推」字，又欲作「敲」字，煉之未定，遂於驢上吟哦，時時引手作推敲之勢。",
                     translation: "剛開始想用「推」字，後來又想改用「敲」字，反覆斟酌未能決定，於是在驢背上吟詠誦讀，還不時伸出手做出推門和敲門的動作。",
                     audioText: "始欲著推字，又欲作敲字，煉之未定，遂於驢上吟哦，時時引手作推敲之勢。",
                     notes: {},
-                    // 加入具體人物特徵
-                    imagePrompt: "Hyper-realistic close-up. A thin scholar with a goatee, wearing worn-out grey robes (Jia Dao)'s hands making pushing and knocking gestures while sitting on a donkey. Intense and focused expression, intricate skin texture, warm lighting, photorealistic. NO text.",
-                    imageData: null
+                    imagePath: "images/reading_segment_2.jpg"
                 },
                 {
                     original: "時韓愈吏部權京兆，島不覺，衝至第三節。左右擁至尹前，島具對所得詩句云云。",
                     translation: "當時韓愈在吏部任職並暫代京兆尹（長安市長），賈島太專注沒察覺，竟然衝撞進儀仗隊的第三節（核心警戒區）。隨從侍衛將他擁推到韓愈面前，賈島詳細回答了關於得到詩句的經過。",
                     audioText: "時韓愈吏部權京兆，島不覺，衝至第三節。左右擁至尹前，島具對所得詩句云云。",
                     notes: {},
-                    // 加入具體人物特徵：賈島(書生) 與 韓愈(紅袍官員)
-                    imagePrompt: "Hyper-realistic cinematic scene. Chaotic ancient street. Armored soldiers surrounding a thin scholar with a goatee in worn-out grey robes (Jia Dao) on a donkey. A dignified middle-aged official with a long black beard wearing red official robes (Han Yu) on a majestic horse looking on. detailed armor and robes, dramatic lighting, 8k. NO text.",
-                    imageData: null
+                    imagePath: "images/reading_segment_3.jpg"
                 },
                 {
                     original: "韓立馬良久，謂島曰：「作『敲』字佳矣。」遂並轡而歸。留連論詩，與為布衣之交。",
                     translation: "韓愈停馬思考了很久，對賈島說：「用『敲』字比較好。」於是兩人並排騎馬回去。他們流連在一起討論詩歌，韓愈與身為平民的賈島結為了朋友。",
                     audioText: "韓立馬良久，謂島曰：作敲字佳矣。遂並轡而歸。留連論詩，與為布衣之交。",
                     notes: {},
-                    // 加入具體人物特徵：賈島 與 韓愈 並騎
-                    imagePrompt: "Hyper-realistic portrait. Two ancient Chinese men riding horses side by side, talking happily. One is a dignified middle-aged official with a long black beard wearing red official robes (Han Yu), the other is a thin scholar with a goatee in worn-out grey robes (Jia Dao). Detailed silk textures, soft daylight, photorealistic. NO text.",
-                    imageData: null
+                    imagePath: "images/reading_segment_4.jpg"
                 },
                 {
                     original: "自此名著。後以不第，乃為僧，居法乾寺，號無本。一日，宣宗微行至寺，聞鐘樓吟詠聲，",
                     translation: "從此賈島名聲大噪。後來因為科舉落榜，便出家為僧，住在法乾寺，法號無本。有一天，唐宣宗微服出巡來到寺裡，聽到鐘樓上有吟詠詩歌的聲音，",
                     audioText: "自此名著。後以不第，乃為僧，居法乾寺，號無本。一日，宣宗微行至寺，聞鐘樓吟詠聲，",
                     notes: {},
-                    // 加入具體人物特徵：唐宣宗(黃衣貴族)
-                    imagePrompt: "Hyper-realistic wide shot. An ancient temple bell tower. A noble man in fine yellow silk casual robes (Emperor) listening from below. Lush surroundings, cinematic lighting, detailed architecture. NO text.",
-                    imageData: null
+                    imagePath: "images/reading_segment_5.jpg"
                 },
                 {
                     original: "遂登樓，於島案上取詩卷覽之。島不識帝，遂攘臂睨帝曰：「郎君何會此邪？」遂奪取詩卷。",
                     translation: "於是登上鐘樓，在賈島的桌案上拿起詩卷閱讀。賈島不認識皇帝，竟然捲起袖子斜眼看著皇帝說：「你這富家公子懂什麼詩？」說完便奪回詩卷。",
                     audioText: "遂登樓，於島案上取詩卷覽之。島不識帝，遂攘臂睨帝曰：郎君何會此邪？遂奪取詩卷。",
                     notes: {},
-                    // 加入具體人物特徵：賈島(灰袍僧人) 與 唐宣宗
-                    imagePrompt: "Hyper-realistic interior shot. A thin monk with a shaved head wearing grey buddhist robes (Jia Dao) looking angry, snatching a scroll from a noble man in fine yellow silk casual robes (Emperor). The monk is rolling up sleeves. Dramatic tension, detailed facial expressions, ancient library background. NO text.",
-                    imageData: null
+                    imagePath: "images/reading_segment_6.jpg"
                 },
                 {
                     original: "帝慚恧下樓而去，遂除島為遂州長江簿。",
                     translation: "皇帝感到慚愧羞恥，下樓離開，後來便任命（貶謫）賈島為遂州長江縣的主簿。",
                     audioText: "帝慚恧下樓而去，遂除島為遂州長江簿。",
                     notes: {},
-                    // 加入具體人物特徵：唐宣宗
-                    imagePrompt: "Hyper-realistic shot. A noble man in fine yellow silk casual robes (Emperor) walking away looking embarrassed. Ancient Chinese architecture background, cinematic depth of field, detailed clothing texture. NO text.",
-                    imageData: null
+                    imagePath: "images/reading_segment_7.jpg"
                 }
             ],
-            // 隨堂測驗 (高難度)
+            // 隨堂測驗
             quiz: [
                 { q: "文中「權」京兆的「權」字，在官制術語中的意思為何？", opts: ["A. 權力很大", "B. 暫代官職", "C. 權衡輕重", "D. 掌握實權"], ans: "B", exp: "「權」在古代官制中指「暫代」或「代理」官職。" },
                 { q: "「衝至第三節」之所以嚴重，是因為「第三節」通常指什麼？", opts: ["A. 儀仗隊的最尾端", "B. 儀仗隊的最前端", "C. 接近主官的核心警戒區", "D. 圍觀群眾的第三層"], ans: "C", exp: "唐代儀仗分導從，第三節極接近主官，闖入此區是對官員極大的冒犯。" },
@@ -428,9 +410,9 @@
                 { q: "「尹」在「左右擁至尹前」中是指？", opts: ["A. 尹姓官員", "B. 縣令", "C. 京兆尹韓愈", "D. 丞相"], ans: "C", exp: "指京兆尹，即當時的韓愈。" },
                 { q: "這兩則故事共同凸顯了賈島的什麼性格特質？", opts: ["A. 圓滑世故", "B. 汲汲營營", "C. 痴迷文學不拘小節", "D. 膽小怕事"], ans: "C", exp: "無論是衝撞儀仗還是對皇帝無禮，都源於他對詩歌的痴迷與專注。" }
             ]
-        }; // ContentData ends here
+        };
 
-        // 預處理所有關鍵字 (將 contentData.vocabulary 轉為 Map 結構)
+        // 預處理所有關鍵字
         const allKeywords = {};
         contentData.vocabulary.forEach((item) => {
              allKeywords[item.word] = item;
@@ -441,10 +423,7 @@
         // ----------------------------------------------------
         let currentTab = 'overview';
         let chatHistory = [];
-        let isGeneratingImage = false;
-        let currentAudio = null;
         let currentPersona = 'jiadao'; 
-        let hasPreloadedStory = false;
         let userAnswers = {}; 
 
         const personas = {
@@ -452,33 +431,28 @@
                 name: "賈島",
                 icon: "fas fa-user-edit",
                 color: "amber",
-                intro: "貧僧無本，俗名賈島。施主也愛詩嗎？這「推」與「敲」二字，貧僧至今仍在琢磨...若是您，會選哪一個呢？",
-                systemPrompt: "你現在扮演唐代苦吟詩人賈島（法號無本）。你對文字極度執著，性格有些孤僻但談到詩歌就非常熱情。你會用謙虛但執著的語氣對話，並堅持認為「敲」字較好，因為有聲音能襯托靜謐。"
+                intro: "貧僧無本，俗名賈島。施主也愛詩嗎？這「推」與「敲」二字，貧僧至今仍在琢磨...若是您，會選哪一個呢？"
             },
             hanyu: {
                 name: "韓愈",
                 icon: "fas fa-user-tie",
                 color: "blue",
-                intro: "老夫韓退之。那日在大街上遇見一位騎驢苦吟的書生，雖衝撞儀仗，但其求道之心可嘉。為官者，當識才愛才啊。",
-                systemPrompt: "你現在扮演唐代文壇領袖韓愈。你說話文雅、威嚴但從容，具有長者風範。你很欣賞賈島的才華，並不介意他的無禮，會強調文學比禮法更重要。"
+                intro: "老夫韓退之。那日在大街上遇見一位騎驢苦吟的書生，雖衝撞儀仗，但其求道之心可嘉。為官者，當識才愛才啊。"
             },
             emperor: {
                 name: "唐宣宗",
                 icon: "fas fa-crown",
                 color: "yellow",
-                intro: "朕微服出巡，本想求個清靜，沒想到被個和尚教訓了一頓！不過...他說朕不懂詩，朕當時還真有點羞愧呢。",
-                systemPrompt: "你現在扮演唐宣宗。你有點尷尬但又身為皇帝的尊嚴。你承認自己當時被賈島的氣勢嚇到，但後來還是覺得該給他點顏色瞧瞧（貶官），語氣中帶有帝王的傲氣。"
+                intro: "朕微服出巡，本想求個清靜，沒想到被個和尚教訓了一頓！不過...他說朕不懂詩，朕當時還真有點羞愧呢。"
             }
         };
 
-        // [Tab Story] 抉擇之路 (RPG)
+        // [Tab Story] 抉擇之路 (RPG) - 圖片路徑更新
         const storyNodes = {
             start: {
                 id: 'start',
                 text: "你是賈島，此刻正騎在驢背上，準備前往長安應試。你腦中突然浮現兩句好詩：「鳥宿池邊樹，僧＿月下門。」你正在猶豫該用哪個字...",
-                // 賈島(書生)特徵
-                imgPrompt: "Hyper-realistic, colorful, detailed cinematic shot. A thin scholar with a goatee, wearing worn-out grey robes and a black cloth hat (Jia Dao) riding a donkey, thoughtful expression, historical drama style, 8k. NO text.",
-                imageData: null,
+                imagePath: "images/rpg_start.jpg",
                 choices: [
                     { text: "覺得「推」字好，安靜不擾人", next: "push" },
                     { text: "覺得「敲」字好，以動襯靜", next: "knock" }
@@ -487,9 +461,7 @@
             push: {
                 id: 'push',
                 text: "你決定用「推」字。你沉浸在詩句中，閉著眼在驢背上做推門的手勢。突然，你感覺撞到了什麼東西...",
-                // 賈島(書生)特徵
-                imgPrompt: "Hyper-realistic shot. A thin scholar with a goatee, wearing worn-out grey robes (Jia Dao) on a donkey with eyes closed pushing air, bumping into armored soldiers. Detailed textures, cinematic lighting. NO text.",
-                imageData: null,
+                imagePath: "images/rpg_push.jpg",
                 choices: [
                     { text: "睜開眼看發生什麼事", next: "collision" }
                 ]
@@ -497,9 +469,7 @@
             knock: {
                 id: 'knock',
                 text: "你覺得「敲」字更有韻味。你一邊吟哦，一邊伸手做敲門的動作。完全沒注意到前方有大官的儀仗隊...",
-                // 賈島(書生)特徵
-                imgPrompt: "Hyper-realistic shot. A thin scholar with a goatee, wearing worn-out grey robes (Jia Dao) on a donkey knocking air. Soldiers looking angry nearby. Detailed facial expressions, photorealistic. NO text.",
-                imageData: null,
+                imagePath: "images/rpg_knock.jpg",
                 choices: [
                     { text: "繼續沉浸在詩中", next: "collision" }
                 ]
@@ -507,9 +477,7 @@
             collision: {
                 id: 'collision',
                 text: "糟了！你衝進了京兆尹韓愈的儀仗隊第三節！左右侍衛立刻將你拿下，推到韓愈馬前。韓愈問你為何亂闖，你該怎麼辦？",
-                // 賈島(書生) 與 韓愈(紅袍官員) 特徵
-                imgPrompt: "Hyper-realistic cinematic scene. A thin scholar with a goatee, wearing worn-out grey robes (Jia Dao) being held by guards in front of a dignified middle-aged official with a long black beard wearing red official robes (Han Yu) on a horse. Tension, detailed costumes, 8k. NO text.",
-                imageData: null,
+                imagePath: "images/rpg_collision.jpg",
                 choices: [
                     { text: "嚇得趕緊磕頭求饒", next: "bad_end_1" },
                     { text: "誠實以此詩句相告，請教用字", next: "good_end" }
@@ -518,16 +486,14 @@
             bad_end_1: {
                 id: 'bad_end_1',
                 text: "【Bad Ending: 庸人自擾】你嚇得說不出話，只知道求饒。韓愈見你膽小如鼠，覺得無趣，便讓人把你趕走了。你錯失了結交文壇領袖的機會。",
-                imageData: null,
+                imagePath: "images/rpg_bad_end_1.jpg",
                 choices: [{ text: "重來", next: "start" }],
                 isEnding: true
             },
             good_end: {
                 id: 'good_end',
                 text: "【Good Ending: 推敲千古】韓愈聽了你的詩，立馬良久，說：「作『敲』字佳矣。」他欣賞你的才華，與你並轡而歸，結為布衣之交。「推敲」的典故流傳千古。",
-                // 賈島(書生) 與 韓愈(紅袍官員) 特徵
-                imgPrompt: "Hyper-realistic portrait. Two ancient Chinese men riding side by side, talking happily. One is a dignified middle-aged official with a long black beard wearing red official robes (Han Yu), the other is a thin scholar with a goatee in worn-out grey robes (Jia Dao). Detailed facial features, ancient city background, warm sunlight, photorealistic. NO text.",
-                imageData: null,
+                imagePath: "images/rpg_good_end.jpg",
                 choices: [{ text: "繼續你的人生 (遇見皇帝)", next: "emperor_encounter" }],
                 isEnding: false,
                 win: true
@@ -535,9 +501,7 @@
             emperor_encounter: {
                 id: 'emperor_encounter',
                 text: "多年後，你出家為僧。一日，你在鐘樓讀詩，不知唐宣宗微服來到身後拿起你的詩卷。你會...",
-                // 賈島(僧人) 與 唐宣宗 特徵
-                imgPrompt: "Hyper-realistic shot. A thin monk with a shaved head wearing grey buddhist robes (Jia Dao) reading in a tower. A noble man in fine yellow silk casual robes (Emperor) standing behind him. Detailed ancient interior, cinematic lighting. NO text.",
-                imageData: null,
+                imagePath: "images/rpg_emperor_encounter.jpg",
                 choices: [
                     { text: "轉身行禮，恭敬讓座", next: "boring_end" },
                     { text: "生氣地奪回詩卷，罵他不懂詩", next: "true_poet_end" }
@@ -546,16 +510,14 @@
             boring_end: {
                 id: 'boring_end',
                 text: "【Normal Ending: 平凡僧人】你認出了皇帝（或只是單純客氣），皇帝覺得無趣便走了。你保住了平安，但也失去了一個展現真性情的機會。",
-                imageData: null,
+                imagePath: "images/rpg_boring_end.jpg",
                 choices: [{ text: "重來", next: "start" }],
                 isEnding: true
             },
             true_poet_end: {
                 id: 'true_poet_end',
                 text: "【True Ending: 痴狂詩人】你怒斥：「郎君何會此邪？」並奪回詩卷。雖然因此被貶為長江簿，但你對詩歌的痴狂與傲骨，讓你成為了獨一無二的苦吟詩人。",
-                // 賈島(僧人) 與 唐宣宗 特徵
-                imgPrompt: "Hyper-realistic dramatic shot. A thin monk with a shaved head wearing grey buddhist robes (Jia Dao) holding a scroll defiantly. A noble man in fine yellow silk casual robes (Emperor) walking away. Strong emotions, detailed lighting, photorealistic. NO text.",
-                imageData: null,
+                imagePath: "images/rpg_true_poet_end.jpg",
                 choices: [{ text: "重來", next: "start" }],
                 isEnding: true,
                 win: true
@@ -609,10 +571,7 @@
                     case 'analysis': renderAnalysis(container); break;
                     case 'chat': renderChat(container); break;
                     case 'quiz': renderQuiz(container); break;
-                    case 'story': 
-                        renderStory(container); 
-                        preloadStoryImages(); 
-                        break;
+                    case 'story': renderStory(container); break;
                 }
                 container.style.opacity = '1';
             }, 200);
@@ -642,11 +601,7 @@
         function renderReading(container) {
             let segmentsHtml = contentData.segments.map((seg, idx) => {
                 let displayHtml = seg.original;
-                // 智慧嵌入所有關鍵字
-                // 按長度排序，優先匹配長詞 (如: "第三節" 優於 "三")
                 const sortedKeys = Object.keys(allKeywords).sort((a, b) => b.length - a.length);
-                
-                // 使用特殊的佔位符避免重複替換
                 const placeholders = {};
                 let counter = 0;
 
@@ -654,21 +609,24 @@
                     if (displayHtml.includes(key)) {
                         const ph = `___PH${counter}___`;
                         placeholders[ph] = key;
-                        // 使用正則表達式進行全字匹配替換，避免破壞 HTML 標籤
                         displayHtml = displayHtml.split(key).join(ph);
                         counter++;
                     }
                 });
 
-                // 還原佔位符為 HTML 標籤
                 Object.keys(placeholders).forEach(ph => {
                     const key = placeholders[ph];
                     displayHtml = displayHtml.split(ph).join(`<span class="interactive-word" onclick="showNote('${key}', ${idx}, this, event)">${key}</span>`);
                 });
 
-                let imageSection = seg.imageData 
-                    ? `<div class="mt-6 rounded-lg overflow-hidden shadow-lg animate-fade-in"><img src="${seg.imageData}" class="w-full h-auto rounded-lg shadow-md" alt="段落插圖"></div>`
-                    : `<div id="img-placeholder-${idx}" class="hidden mt-6 h-48 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400 border-2 border-dashed border-gray-300"><i class="fas fa-image mr-2"></i>圖解區</div>`;
+                // 靜態圖片載入邏輯
+                let imageSection = `
+                    <div class="mt-6 rounded-lg overflow-hidden shadow-lg">
+                        <img src="${seg.imagePath}" 
+                             class="w-full h-auto rounded-lg shadow-md" 
+                             alt="段落插圖"
+                             onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'h-48 bg-gray-100 flex items-center justify-center text-gray-400 border-2 border-dashed border-gray-300\'><i class=\'fas fa-image mr-2\'></i>圖片準備中...請確認 images 資料夾</div>'">
+                    </div>`;
 
                 return `
                     <div class="group mb-12 relative pl-6 border-l-4 border-gray-200 hover:border-amber-500 transition-colors duration-300">
@@ -695,20 +653,6 @@
             }).join('');
 
             container.innerHTML = `
-                <div class="flex flex-col md:flex-row gap-6 mb-8 items-center bg-amber-50 p-4 rounded-xl border border-amber-100">
-                    <div class="flex-grow">
-                        <h3 class="font-bold text-amber-900 text-lg">AI 意境圖解</h3>
-                        <p class="text-sm text-amber-700">還原賈島騎驢推敲與衝撞儀仗的場景。</p>
-                    </div>
-                    <div class="flex gap-2">
-                        <button id="btn-gen-all" onclick="generateAllImages()" class="px-5 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg shadow transition flex items-center font-medium">
-                            <i class="fas fa-paint-brush mr-2"></i>一鍵生成全篇圖解
-                        </button>
-                        <button id="btn-download-all" onclick="downloadAllImages()" class="px-5 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg shadow transition flex items-center font-medium">
-                            <i class="fas fa-download mr-2"></i>下載所有圖片
-                        </button>
-                    </div>
-                </div>
                 <div class="max-w-3xl mx-auto">
                     ${segmentsHtml}
                 </div>
@@ -732,38 +676,24 @@
                                         <polygon points="0 0, 10 3.5, 0 7" fill="#666" />
                                     </marker>
                                 </defs>
-                                
-                                <!-- Core Poem -->
                                 <rect x="200" y="20" width="200" height="40" rx="5" fill="#fef3c7" stroke="#d97706" />
                                 <text x="300" y="45" text-anchor="middle" font-weight="bold">鳥宿池邊樹 (靜)</text>
-
-                                <!-- Choice -->
                                 <circle cx="300" cy="100" r="30" fill="#e5e7eb" stroke="#374151" />
                                 <text x="300" y="105" text-anchor="middle" font-weight="bold">?</text>
-                                
-                                <!-- Push -->
                                 <g transform="translate(100, 160)">
                                     <rect x="0" y="0" width="120" height="60" rx="10" fill="#fee2e2" stroke="#dc2626" />
                                     <text x="60" y="25" text-anchor="middle" font-weight="bold" fill="#991b1b">僧【推】月下門</text>
                                     <text x="60" y="45" text-anchor="middle" font-size="12">無聲、輕柔</text>
                                 </g>
-
-                                <!-- Knock -->
                                 <g transform="translate(380, 160)">
                                     <rect x="0" y="0" width="120" height="60" rx="10" fill="#dcfce7" stroke="#16a34a" />
                                     <text x="60" y="25" text-anchor="middle" font-weight="bold" fill="#065f46">僧【敲】月下門</text>
                                     <text x="60" y="45" text-anchor="middle" font-size="12">有聲、禮貌</text>
                                 </g>
-
-                                <!-- Comparison -->
                                 <text x="160" y="260" text-anchor="middle" font-size="12" fill="#666">靜上加靜 (平淡)</text>
                                 <text x="440" y="260" text-anchor="middle" font-size="12" fill="#666">以動襯靜 (更顯幽靜)</text>
-
-                                <!-- Han Yu's Verdict -->
                                 <rect x="200" y="300" width="200" height="30" rx="15" fill="#1e40af" stroke="#1e3a8a" />
                                 <text x="300" y="320" text-anchor="middle" font-weight="bold" fill="white">韓愈：作「敲」字佳！</text>
-
-                                <!-- Paths -->
                                 <path d="M300,60 L300,70" stroke="#666" stroke-width="2" marker-end="url(#arrow-deep)" />
                                 <path d="M275,115 L160,160" stroke="#666" stroke-width="2" marker-end="url(#arrow-deep)" />
                                 <path d="M325,115 L440,160" stroke="#666" stroke-width="2" marker-end="url(#arrow-deep)" />
@@ -777,27 +707,20 @@
                         <h2 class="text-2xl font-bold text-amber-900 mb-4"><i class="fas fa-users mr-2"></i>賈島的人際與命運圖</h2>
                         <div class="bg-white rounded-xl shadow-lg p-6 border border-amber-100 flex justify-center overflow-x-auto">
                             <svg width="600" height="250">
-                                <!-- Jia Dao Center -->
                                 <circle cx="300" cy="125" r="40" fill="#fcd34d" stroke="#b45309" stroke-width="3" />
                                 <text x="300" y="130" text-anchor="middle" font-weight="bold" font-size="16">賈島</text>
-                                
-                                <!-- Han Yu (Good) -->
                                 <g transform="translate(100, 50)">
                                     <rect x="0" y="0" width="100" height="50" rx="8" fill="#dbeafe" stroke="#1e40af" />
                                     <text x="50" y="30" text-anchor="middle" font-weight="bold" fill="#1e40af">韓愈</text>
                                 </g>
                                 <line x1="200" y1="75" x2="265" y2="105" stroke="#1e40af" stroke-width="2" />
                                 <text x="220" y="85" font-size="12" fill="#1e40af">布衣之交</text>
-
-                                <!-- Emperor (Bad) -->
                                 <g transform="translate(400, 50)">
                                     <rect x="0" y="0" width="100" height="50" rx="8" fill="#fee2e2" stroke="#dc2626" />
                                     <text x="50" y="30" text-anchor="middle" font-weight="bold" fill="#dc2626">唐宣宗</text>
                                 </g>
                                 <line x1="400" y1="75" x2="335" y2="105" stroke="#dc2626" stroke-width="2" />
                                 <text x="350" y="85" font-size="12" fill="#dc2626">無禮/貶謫</text>
-
-                                <!-- Fate -->
                                 <text x="300" y="220" text-anchor="middle" font-size="14" font-style="italic" fill="#666">成也詩痴，敗也詩痴</text>
                             </svg>
                         </div>
@@ -928,7 +851,6 @@
             const userText = input.value.trim();
             if (!userText) return;
 
-            // Display user message
             const msgContainer = document.getElementById('chat-messages');
             const userBubble = document.createElement('div');
             userBubble.className = 'chat-bubble chat-user shadow-sm animate-fade-in';
@@ -938,14 +860,13 @@
             input.value = '';
             msgContainer.scrollTop = msgContainer.scrollHeight;
 
-            // AI Loading
             const aiBubble = document.createElement('div');
             aiBubble.className = 'chat-bubble chat-ai shadow-sm';
             aiBubble.innerHTML = '<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>';
             msgContainer.appendChild(aiBubble);
             msgContainer.scrollTop = msgContainer.scrollHeight;
 
-            // Simulate AI response (Mock logic for demo)
+            // 靜態版本使用預設回應，因為沒有後端 API
             setTimeout(() => {
                 let reply = "";
                 if (currentPersona === 'jiadao') {
@@ -959,7 +880,7 @@
                 aiBubble.innerHTML = reply;
                 chatHistory.push({ role: 'ai', content: reply });
                 msgContainer.scrollTop = msgContainer.scrollHeight;
-            }, 1500);
+            }, 1000);
         }
 
         function renderQuiz(container) {
@@ -1022,7 +943,6 @@
                     <h2 class="text-2xl font-bold text-center mb-8 text-gray-700">高難度挑戰 (共20題)</h2>
                     ${quizHtml}
                     
-                    <!-- Submit Button Area -->
                     <div class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-4 shadow-lg flex justify-center items-center z-40">
                          <button onclick="submitQuiz()" class="px-8 py-3 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-full shadow-lg transition transform hover:scale-105 flex items-center text-lg">
                             <i class="fas fa-paper-plane mr-2"></i> 交卷並查看成績
@@ -1036,14 +956,13 @@
             if(!window.currentStoryNode) window.currentStoryNode = 'start';
             const node = storyNodes[window.currentStoryNode];
 
-            let imageContent;
-            if (node.isLoading) {
-                 imageContent = `<div class="h-auto min-h-[256px] bg-gray-100 flex flex-col items-center justify-center relative overflow-hidden rounded-t-xl border-b border-gray-200"><div class="z-10 text-center animate-pulse"><i class="fas fa-palette text-4xl text-amber-400 mb-3"></i><p class="text-amber-600 font-bold">正在為您繪製場景...</p></div></div>`;
-            } else if (node.imageData) {
-                imageContent = `<div class="w-full overflow-hidden rounded-t-xl"><img src="${node.imageData}" class="w-full h-auto fade-in-image" alt="場景圖"></div>`;
-            } else {
-                 imageContent = `<div class="h-auto min-h-[256px] bg-gray-100 flex flex-col items-center justify-center relative overflow-hidden rounded-t-xl border-b border-gray-200"><div class="z-10 text-center"><i class="fas fa-image text-4xl text-gray-300 mb-3"></i><p class="text-gray-500 text-sm">場景圖準備中...</p></div></div>`;
-            }
+            // 靜態載入邏輯
+            let imageContent = `<div class="w-full overflow-hidden rounded-t-xl">
+                <img src="${node.imagePath}" 
+                     class="w-full h-auto fade-in-image" 
+                     alt="場景圖"
+                     onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'h-48 bg-gray-100 flex items-center justify-center text-gray-400 border-2 border-dashed border-gray-300\'><i class=\'fas fa-image mr-2\'></i>圖片準備中...請確認 images 資料夾</div>'">
+            </div>`;
 
             container.innerHTML = `<div class="max-w-2xl mx-auto bg-white rounded-xl shadow-xl overflow-hidden border border-amber-100">${imageContent}<div class="p-8"><div class="flex items-center mb-4 text-amber-800 text-sm font-bold uppercase tracking-widest"><i class="fas fa-scroll mr-2"></i> 抉擇時刻</div><p class="text-xl leading-relaxed text-gray-800 mb-8 font-serif">${node.text}</p>${node.isEnding ? (node.win ? `<div class="text-center mb-6 text-green-600 font-bold text-2xl p-4 bg-green-50 rounded-lg border border-green-200"><i class="fas fa-trophy mr-2"></i>達成結局</div>` : `<div class="text-center mb-6 text-gray-600 font-bold text-2xl p-4 bg-gray-50 rounded-lg border border-gray-200">故事結束</div>`) : ''}<div class="grid gap-4">${node.choices.map(c => `<button onclick="nextStoryNode('${c.next}')" class="story-choice w-full py-4 px-6 bg-white hover:bg-amber-50 border-2 border-amber-200 hover:border-amber-400 rounded-xl text-amber-900 font-bold text-lg transition duration-200 flex items-center justify-between group"><span>${c.text}</span><i class="fas fa-chevron-right text-amber-300 group-hover:text-amber-600 transition"></i></button>`).join('')}</div></div></div>`;
             if(node.win) { try { confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } }); } catch (e) { console.log("Confetti not loaded"); } }
@@ -1052,144 +971,6 @@
         function nextStoryNode(nodeId) {
             window.currentStoryNode = nodeId;
             renderStory(document.getElementById('content-display'));
-        }
-        
-        async function preloadStoryImages() {
-            if (hasPreloadedStory) return;
-            hasPreloadedStory = true;
-            await generateStoryImage('start');
-            const allIds = Object.keys(storyNodes).filter(id => id !== 'start');
-            for (const id of allIds) {
-                await new Promise(r => setTimeout(r, 500));
-                generateStoryImage(id).catch(e => console.error(`Background gen failed for ${id}`, e));
-            }
-        }
-
-        async function generateStoryImage(nodeId) {
-            const node = storyNodes[nodeId];
-            if (node.imageData || node.isLoading) return; 
-            
-            if (!node.imgPrompt) {
-                node.imgPrompt = "Traditional Chinese ink wash painting style. A symbolic scene representing ancient poetry. Artistic. NO text.";
-            }
-
-            node.isLoading = true;
-            if (window.currentStoryNode === nodeId) { const container = document.getElementById('content-display'); if(container) renderStory(container); }
-            try {
-                // 呼叫 Gemini Imagen 4.0 API
-                const url = `https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict?key=${apiKey}`;
-                const response = await fetch(url, { 
-                    method: 'POST', 
-                    headers: { 'Content-Type': 'application/json' }, 
-                    body: JSON.stringify({ 
-                        instances: [{ prompt: node.imgPrompt }], 
-                        parameters: { sampleCount: 1 } 
-                    }) 
-                });
-                
-                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                
-                const data = await response.json();
-                if (data.predictions && data.predictions[0].bytesBase64Encoded) { 
-                    node.imageData = `data:image/png;base64,${data.predictions[0].bytesBase64Encoded}`; 
-                } else { 
-                    throw new Error("No image data returned"); 
-                }
-            } catch (err) { 
-                console.error(`Story image failed for ${nodeId}:`, err); 
-                showError("圖片生成失敗，可能是 API 限制或網路問題。");
-            } finally { 
-                node.isLoading = false; 
-                if (window.currentStoryNode === nodeId) { 
-                    const container = document.getElementById('content-display'); 
-                    if(container) renderStory(container); 
-                } 
-            }
-        }
-
-        async function generateAllImages() {
-            if (isGeneratingImage) return;
-            const btn = document.getElementById('btn-gen-all');
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>書畫繪製中...';
-            isGeneratingImage = true;
-            contentData.segments.forEach((_, i) => { document.getElementById(`img-placeholder-${i}`)?.classList.remove('hidden'); });
-            
-            try {
-                for (let i = 0; i < contentData.segments.length; i++) {
-                    if (contentData.segments[i].imageData) continue;
-                    
-                    const prompt = contentData.segments[i].imagePrompt;
-                    // 呼叫 Gemini Imagen 4.0 API
-                    const url = `https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict?key=${apiKey}`;
-                    const response = await fetch(url, { 
-                        method: 'POST', 
-                        headers: { 'Content-Type': 'application/json' }, 
-                        body: JSON.stringify({ 
-                            instances: [{ prompt: prompt }], 
-                            parameters: { sampleCount: 1 } 
-                        }) 
-                    });
-
-                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-
-                    const data = await response.json();
-                    if (data.predictions && data.predictions[0].bytesBase64Encoded) {
-                        const b64 = `data:image/png;base64,${data.predictions[0].bytesBase64Encoded}`;
-                        contentData.segments[i].imageData = b64;
-                        const ph = document.getElementById(`img-placeholder-${i}`);
-                        if (ph) { 
-                            const imgDiv = document.createElement('div'); 
-                            imgDiv.className = "mt-6 rounded-lg overflow-hidden shadow-lg animate-fade-in"; 
-                            imgDiv.innerHTML = `<img src="${b64}" class="w-full h-auto rounded-lg shadow-md" alt="段落插圖">`; 
-                            ph.replaceWith(imgDiv); 
-                        }
-                    }
-                }
-            } catch (err) { 
-                showError("圖片生成過程中遇到了一些問題，請稍後再試。"); 
-                console.error(err); 
-            } finally { 
-                isGeneratingImage = false; 
-                btn.disabled = false; 
-                btn.innerHTML = '<i class="fas fa-check mr-2"></i>繪製完成'; 
-            }
-        }
-
-        // Download function
-        async function downloadAllImages() {
-            const zip = new JSZip();
-            let count = 0;
-            const title = contentData.metadata.title.replace(/[^\w\u4e00-\u9fa5]/g, "_") || "download";
-            const folder = zip.folder("images");
-
-            // Reading segments
-            contentData.segments.forEach((seg, index) => {
-                if (seg.imageData) {
-                    const base64Data = seg.imageData.replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
-                    // Save as .jpg
-                    folder.file(`reading_segment_${index + 1}.jpg`, base64Data, {base64: true});
-                    count++;
-                }
-            });
-
-            // RPG nodes
-            Object.entries(storyNodes).forEach(([nodeId, node]) => {
-                if (node.imageData) {
-                    const base64Data = node.imageData.replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
-                    // Save as .jpg
-                    folder.file(`rpg_${nodeId}.jpg`, base64Data, {base64: true});
-                    count++;
-                }
-            });
-
-            if (count === 0) {
-                showError("沒有可下載的圖片，請先生成圖片。(演示模式下無圖片)");
-                return;
-            }
-
-            const content = await zip.generateAsync({type: "blob"});
-            saveAs(content, `${title}_images.zip`);
         }
 
         function checkAnswer(idx, val, ans) {
@@ -1296,7 +1077,6 @@
             let left = rect.left + scrollLeft;
             let top = rect.bottom + scrollTop + 5; 
             
-            // 防止彈出視窗超出螢幕右側
             if (left + 300 > document.body.clientWidth) { 
                 left = document.body.clientWidth - 310; 
             }
@@ -1330,7 +1110,6 @@
             requestAnimationFrame(() => { toast.classList.remove('translate-y-10', 'opacity-0'); });
             setTimeout(() => { toast.classList.add('translate-y-10', 'opacity-0'); setTimeout(() => toast.classList.add('hidden'), 300); }, 4000);
         }
-
     </script>
 </body>
 </html>
